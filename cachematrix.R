@@ -7,41 +7,41 @@
 
     makeCacheMatrix <- function(A = matrix()) {
 	
-	inv <- NULL
+	inv <- NULL		## We don't know what is inverse
 	
-	set <- function(B) {
-	    A <<- B
-	    inv <<- NULL
+	set <- function(B) {	## after running set
+	    A <<- B		## we have the matrix A
+	    inv <<- NULL	## we don't know its inverse yet
 	}
-	get <-function() A
-	setInv <- function(inverse) inv <<- inverse
-	getInv <- function() inv
+	get <-function() A				## take the A
+	setInv <- function(inverse) inv <<- inverse	## set the inverse when we know it
+	getInv <- function() inv			## get the inverse value or NULL
 	
-	list(set =set, get = get, setInv = setInv, getInv = getInv)
+	list(set =set, get = get, setInv = setInv, getInv = getInv)	## return a list of functions
     
     }
     
     
 
-## The cacheSolve get a list of functions described above, 
-## return a matrix that is inverse of A
+## The cacheSolve get x that is a list of functions described above, 
+## return a matrix that is inverse of A (also see above)
 ## the function would compute the inverse only if A changed
 ## else the function take inverse A from cache
 
     cacheSolve <- function(x, ...) {
         
-        inv <- x$getInv()
+        inv <- x$getInv()	## inverse value or NULL
 	
-        if(!is.null(inv)) {
-	    message("getting cached data")
-	    return(inv)
+        if(!is.null(inv)) {			## if inverse is known	
+	    message("getting cached data")	## say that it is known
+	    return(inv)				## return already known value
         }
     
-	M <- x$get()
-        inv <- solve(M)
-        x$setInv(inv)
+	M <- x$get()				## else get a matrix
+        inv <- solve(M)				## and compute its inverse
+        x$setInv(inv)				## remember computed inverse matrix
     
-	inv
+	inv					## result
 
     }
 
