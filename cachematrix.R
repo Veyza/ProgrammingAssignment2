@@ -13,7 +13,7 @@
 	    A <<- B		## we have the matrix A
 	    inv <<- NULL	## we don't know its inverse yet
 	}
-	get <-function() A				## take the A
+	get <-function() A				
 	setInv <- function(inverse) inv <<- inverse	## set the inverse when we know it
 	getInv <- function() inv			## get the inverse value or NULL
 	
